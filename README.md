@@ -1,32 +1,34 @@
-# DBMS_project
+# Product Manager
 
-Product Manager:
 A simple web-based product management system built using Flask and MySQL. This application allows users to manage products, categories, and stock levels, with features like user authentication (signup/login), low stock alerts, and CRUD operations for products.
 
-Features
+## Features
 User Authentication:
 
-Signup and login functionality with password hashing for security.
-Session management to track logged-in users.
-Product Management:
+- Signup and login functionality with password hashing for security.
+- Session management to track logged-in users.
 
-Add, edit, and delete products.
-Assign products to categories.
-Update product stock levels.
-Category Management:
+## Product Management:
 
-Add and manage product categories.
-Low Stock Alerts:
+- Add, edit, and delete products.
+- Assign products to categories.
+- Update product stock levels.
 
-Automatically highlights products with low stock levels.
-Responsive Design:
+## Category Management:
+- Add and manage product categories.
 
-User-friendly interface for managing products and categories.
-Technologies Used
-Backend: Flask (Python)
-Database: MySQL
-Frontend: HTML, CSS, Bootstrap
-Other Tools: Flask-WTF, Flask-Bcrypt, MySQL Connector
+## Low Stock Alerts:
+- Automatically highlights products with low stock levels.
+  
+## Responsive Design:
+
+- User-friendly interface for managing products and categories.
+  
+## Technologies Used
+- Backend: Flask (Python)
+- Database: MySQL
+- Frontend: HTML, CSS, Bootstrap
+- Other Tools: Flask-WTF, Flask-Bcrypt, MySQL Connector
 
 # Setup Instructions
 1. Clone the Repository
