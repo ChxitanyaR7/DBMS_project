@@ -69,6 +69,8 @@ http://127.0.0.1:5000
 your_project/
 ├── app.py
 ├── database.py
+├── __pycache__
+    ├── database.cpython-313.pyc
 ├── templates/
 │   ├── base.html
 │   ├── index.html
@@ -78,7 +80,7 @@ your_project/
 │   ├── login.html
 │   ├── signup.html
 │   ├── 404.html
-
+├── requirements.txt
 ```
 
 ## Features in Detail
@@ -112,6 +114,7 @@ A warning message is displayed on the main page for low-stock products.
 
 ### 3. Signup Page
 ![Signup Page](signup_page.png)
+
 
 ## Future Enhancements
 - Add user roles (e.g., admin, regular user).
