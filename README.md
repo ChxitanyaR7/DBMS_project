@@ -105,13 +105,13 @@ A warning message is displayed on the main page for low-stock products.
 ## Screenshots
 
 ### 1. Main Page
-![Main Page](screenshots/main_page.png)
+![Main Page](main_page.png)
 
 ### 2. Login Page
-![Login Page](screenshots/login_page.png)
+![Login Page](login_page.png)
 
 ### 3. Signup Page
-![Signup Page](screenshots/signup_page.png)
+![Signup Page](signup_page.png)
 
 ## Future Enhancements
 - Add user roles (e.g., admin, regular user).
