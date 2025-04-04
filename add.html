@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="row mb-4">
+    <div class="col">
+        <h2>Add New Product</h2>
+    </div>
+    <div class="col text-end">
+        <a href="/" class="btn btn-secondary">Back to Products</a>
+        <a href="/categories" class="btn btn-info">Manage Categories</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="0" value="0" required>
+            </div>
+            <div class="mb-3">
+                <label for="category_id" class="form-label">Category</label>
+                <select class="form-select" id="category_id" name="category_id">
+                    <option value="">-- Select Category --</option>
+                    {% for category in categories %}
+                    <option value="{{ category[0] }}">{{ category[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="row mb-4">
+    <div class="col">
+        <h2>Categories</h2>
+    </div>
+    <div class="col text-end">
+        <a href="/" class="btn btn-secondary">Back to Products</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Add New Category</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Existing Categories</h5>
+            </div>
+            <div class="card-body">
+                {% if categories %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Products</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                        <tr>
+                            <td>{{ category[1] }}</td>
+                            <td>{{ category[2] }}</td>
+                            <td>
+                                {% if category[2] == 0 %}
+                                <a href="/delete_category/{{ category[0] }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                {% else %}
+                                <button class="btn btn-sm btn-danger" disabled title="Cannot delete category with associated products">Delete</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No categories found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

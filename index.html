@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% if low_stock_products %}
+<div class="alert alert-warning">
+    <h4><i class="bi bi-exclamation-triangle-fill"></i> Low Stock Alert!</h4>
+    <p>The following products are running low:</p>
+    <ul>
+        {% for product in low_stock_products %}
+        <li>{{ product[1] }} ({{ product[3] }} remaining)</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="row mb-4">
+    <div class="col">
+        <h2>Products</h2>
+    </div>
+    <div class="col text-end">
+        <a href="/add" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Product</a>
+    </div>
+</div>
+
+{% if products %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Last Updated</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr {% if product[3] < 5 %}class="table-warning"{% endif %}>
+            <td>{{ product[0] }}</td>
+            <td>{{ product[1] }}</td>
+            <td>{{ product[4] or 'Uncategorized' }}</td>
+            <td>${{ "%.2f"|format(product[2]) }}</td>
+            <td>{{ product[3] }}</td>
+            <td>{{ product[6].strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+                <form method="POST" action="/update_stock/{{ product[0] }}" class="d-flex">
+                    <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm" style="width: 60px;">
+                    <button type="submit" name="operation" value="add" class="btn btn-sm btn-success ms-1" title="Add Stock">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                    <button type="submit" name="operation" value="remove" class="btn btn-sm btn-danger ms-1" title="Remove Stock" {% if product[3] == 0 %}disabled{% endif %}>
+                        <i class="bi bi-dash"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <a href="/edit/{{ product[0] }}" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                <a href="/delete/{{ product[0] }}" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Are you sure you want to delete {{ product[1] }}?')"><i class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">
+    <p>No products found. <a href="/add" class="alert-link">Add your first product</a>.</p>
+</div>
+{% endif %}
+{% endblock %}

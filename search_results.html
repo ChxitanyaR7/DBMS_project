@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="row mb-4">
+    <div class="col">
+        <h2>Search Results for "{{ query }}"</h2>
+    </div>
+    <div class="col text-end">
+        <a href="/" class="btn btn-secondary">Back to All Products</a>
+    </div>
+</div>
+
+{% if products %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Last Updated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product[0] }}</td>
+            <td>{{ product[1] }}</td>
+            <td>{{ product[4] or 'Uncategorized' }}</td>
+            <td>${{ "%.2f"|format(product[2]) }}</td>
+            <td>{{ product[3] }}</td>
+            <td>{{ product[6].strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+                <a href="/edit/{{ product[0] }}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="/delete/{{ product[0] }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">No products found matching "{{ query }}"</div>
+{% endif %}
+{% endblock %}
